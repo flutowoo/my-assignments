@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MyAssignment</string>
+    <string name="APP_ID">B876450C-5208-4D81-B04F-97A98EE5BF3C</string>
+
+    <string name="login_title">SendBird Assignment</string>
+    <string name="login_ti_userid_hint">User ID</string>
+    <string name="login_ti_nickname_hint">Nickname</string>
+    <string name="btn_enter">Enter</string>
+
+    <!-- Error Messages -->
+    <string name="loing_empty_value">"Please enter user id and nickname"</string>
+</resources>
