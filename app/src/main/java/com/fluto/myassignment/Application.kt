@@ -1,11 +1,17 @@
 package com.fluto.myassignment
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.multidex.MultiDexApplication
 import com.fluto.myassignment.R.string.APP_ID
 import com.fluto.myassignment.utils.MyPreference
 import com.fluto.myassignment.utils.ToastUtil
+import com.fluto.myassignment.utils.changeValue
+import com.sendbird.android.LogLevel
+import com.sendbird.android.SendbirdChat
 import com.sendbird.android.exception.SendbirdException
 import com.sendbird.android.handler.InitResultHandler
+import com.sendbird.android.params.InitParams
 import com.sendbird.uikit.SendbirdUIKit
 import com.sendbird.uikit.adapter.SendbirdUIKitAdapter
 import com.sendbird.uikit.consts.ReplyType
@@ -14,73 +20,37 @@ import com.sendbird.uikit.consts.TypingIndicatorType
 import com.sendbird.uikit.interfaces.UserInfo
 import com.sendbird.uikit.model.configurations.UIKitConfig
 
-class Application: MultiDexApplication() {
+class Application : MultiDexApplication() {
+
+    protected val initMutableLiveData: MutableLiveData<Boolean> =
+        MutableLiveData<Boolean>().apply { changeValue(false) }
+    val initLiveData: LiveData<Boolean>
+        get() = initMutableLiveData
+
     override fun onCreate() {
         super.onCreate()
 
         MyPreference.init(this)
-        initUIKIt()
-        initConfig()
+        sendbirdChatInit()
     }
 
-    private fun initUIKIt() {
-        SendbirdUIKit.init(object : SendbirdUIKitAdapter {
-            override fun getAppId(): String {
-                return resources.getString(APP_ID) // Specify your Sendbird application ID.
-            }
-
-            override fun getAccessToken(): String {
-                return ""
-            }
-
-            override fun getUserInfo(): UserInfo {
-                return object : UserInfo {
-                    override fun getUserId(): String {
-                        return MyPreference.userId // Specify your user ID.
-                    }
-
-                    override fun getNickname(): String {
-                        return MyPreference.nickname // Specify your user nickname.
-                    }
-
-                    override fun getProfileUrl(): String {
-                        return MyPreference.profileUrl
-                    }
+    open fun sendbirdChatInit() {
+        val initParams = InitParams(resources.getString(R.string.APP_ID), applicationContext, true)
+        initParams.logLevel = LogLevel.ERROR
+        SendbirdChat.init(
+            initParams,
+            object : InitResultHandler {
+                override fun onInitFailed(e: SendbirdException) {
+                    initMutableLiveData.changeValue(true)
                 }
-            }
 
-            override fun getInitResultHandler(): InitResultHandler {
-                return object : InitResultHandler {
-                    override fun onMigrationStarted() {
-                        ToastUtil.show(applicationContext, "Migration started")
-                    }
-
-                    override fun onInitFailed(e: SendbirdException) {
-                        ToastUtil.show(applicationContext, "Initialization failed")
-                    }
-
-                    override fun onInitSucceed() {
-                        ToastUtil.show(applicationContext, "Initialization succeeded")
-                    }
+                override fun onMigrationStarted() {
                 }
-            }
-        }, this)
+
+                override fun onInitSucceed() {
+                    initMutableLiveData.changeValue(true)
+                }
+            })
     }
 
-    private fun initConfig() {
-        with(UIKitConfig) {
-            common.enableUsingDefaultUserProfile = false
-            groupChannelListConfig.apply {
-                enableTypingIndicator = true
-                enableMessageReceiptStatus = true
-            }
-            groupChannelConfig.apply {
-                enableMention = true
-                replyType = ReplyType.THREAD
-                threadReplySelectType = ThreadReplySelectType.THREAD
-                enableFeedback = true
-                typingIndicatorTypes = setOf(TypingIndicatorType.BUBBLE)
-            }
-        }
-    }
 }

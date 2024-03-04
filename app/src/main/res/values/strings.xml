@@ -7,6 +7,9 @@
     <string name="login_ti_nickname_hint">Nickname</string>
     <string name="btn_enter">Enter</string>
     <string name="btn_enter_custom">Enter With Custom</string>
+    <string name="add_user">Add Users</string>
+    <string name="opt_add">ADD</string>
+    <string name="opt_join">JOIN</string>
 
     <!-- Error Messages -->
     <string name="loing_empty_value">"Please enter user id and nickname"</string>
