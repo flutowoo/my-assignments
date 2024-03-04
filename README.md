@@ -18,7 +18,7 @@ Please understand that the initial progress was carried out with SendBird UIKit 
 
 ## Tasks
 1. Task 1: API Integration and Basic Chat Setup
-- Proceed with Sendbird Chat API Guide (https://sendbird.com/docs/chat/sdk/v4/android/overview)
+* Proceed with Sendbird Chat API Guide (https://sendbird.com/docs/chat/sdk/v4/android/overview)
 - Screens : LogIn, GroupChannelList, UserSelection, Chatting
 2. Task 2: Enhancing the Chat Interface
 - Chat implementation is implemented using Sendbird's MessageCollection system
