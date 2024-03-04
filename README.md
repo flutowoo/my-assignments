@@ -17,13 +17,13 @@ Please understand that the initial progress was carried out with SendBird UIKit 
 3. 'RUN'
 
 ## Tasks
-1. Task 1: API Integration and Basic Chat Setup
+* Task 1: API Integration and Basic Chat Setup
 + Proceed with Sendbird Chat API Guide [Sendbird SDK Doc](https://sendbird.com/docs/chat/sdk/v4/android/overview)
 + Screens : LogIn, GroupChannelList, UserSelection, Chatting
-2. Task 2: Enhancing the Chat Interface
+* Task 2: Enhancing the Chat Interface
 + Chat implementation is implemented using Sendbird's MessageCollection system
 + The layout of the data sent and received was constructed using the ViewType of the RecyclerView Adapter.
-3. Task 3: Implement a Feature - Read Receipts or Typing Indicators
+* Task 3: Implement a Feature - Read Receipts or Typing Indicators
 + I chose the second option[Typing Indicators] here and implemented it.
 + This function was implemented using startType, displayTypeUsers supported by GroupChannel.
 
