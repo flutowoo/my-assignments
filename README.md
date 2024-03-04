@@ -1,6 +1,7 @@
 # Take-Home Assignment: Chat Feature Integration
 
 This task was developed with Android/Kotlin.
+
 Please understand that the initial progress was carried out with SendBird UIKit because I didn't understand the contents of the assignment, but I revised it back to Chat API, so I don't have enough satisfaction with the assignment.
 
 
